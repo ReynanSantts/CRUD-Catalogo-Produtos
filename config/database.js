@@ -1,0 +1,23 @@
+require('dotenv').config()
+const mysql = require('mysql2/promise')
+
+
+const config = {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+}
+
+async function conectar() {
+    try{
+    const conexao = await mysql.createConnection(config)
+    console.log('Conectado ao MYSQL Com Sucesso!')
+    return conexao
+    }
+    catch(erro){
+        console.error('Erro ao Conectar', erro.message)
+        throw erro
+    }
+}
+module.exports = conectar
